@@ -21,7 +21,7 @@
     NSError *parseError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dic options:NSJSONWritingPrettyPrinted error:&parseError];
     NSString *str = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    //NSLog(@"dict str = %@",str);
+    NSLog(@"dict str = %@",str);
     return str;
 }
 
@@ -69,12 +69,13 @@
 //        NSLog(@"token = %@",token);
 //    }
     
-    ///2
+    ///2  参照简书：https://www.jianshu.com/p/dd15cdcae597 将私钥json[@"private_key"]生成p12文件，密码为123456，
+    ///注意：私钥先放到text文件中，除了私钥的开头”-----BEGIN PRIVATE KEY-----“和结尾”-----END PRIVATE KEY-----“单独一行，其他每一行需要每64个字符换一行
     NSString *filePath = [[NSBundle mainBundle] pathForResource:@"private_key.p12" ofType:@""];
     NSData *secretData = [NSData dataWithContentsOfFile:filePath];
     JWTBuilder *builder = [JWTBuilder encodePayload: payDict].headers(headerDict).secretData(secretData).algorithmName(JWTAlgorithmNameRS256).privateKeyCertificatePassphrase(@"123456");
-    NSString *token = builder.encode;
-    NSLog(@"token = %@ error = %@",token,builder.jwtError);
+    NSString *JWT = builder.encode;
+    NSLog(@"JWT = %@ \n error = %@",JWT,builder.jwtError);
     
     
     ///3 用不了
