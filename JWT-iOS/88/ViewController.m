@@ -39,8 +39,7 @@
     };
     NSDate *datenow = [NSDate date];
     NSTimeInterval interval = [datenow timeIntervalSince1970];
-    //10位
-    NSInteger timeSp = [[NSString stringWithFormat:@"%.0f",interval] integerValue];
+    NSInteger timeSp = 1609379725;//[[NSString stringWithFormat:@"%.0f",interval] integerValue];//10位
     NSDictionary *payDict = @{
       @"aud": @"https://oauth-login.cloud.huawei.com/oauth2/v3/token",
       @"iss": json[@"sub_account"],
